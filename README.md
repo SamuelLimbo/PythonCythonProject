@@ -8,7 +8,7 @@ In order to run the program the first thing to be done is to untar the astro.tar
 
    >>> make
 
-Once this is done we need to to compile the cython extension:
+Once this is done, we need to compile the cython extension:
 
    >>> python setup.py build_ext --inplace
 
