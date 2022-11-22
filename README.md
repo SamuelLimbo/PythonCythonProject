@@ -1,9 +1,6 @@
-#PythonCythonProject
-Compute the SED using the Simbad and VizieR databases. 
+#PythonCythonProject: Compute the SED using the Simbad and VizieR databases. 
 
-In order to run the program the first thing to be done is to untar the astro.tar.
-
-In the terminal:
+In order to run the program the first thing to be done is to untar the astro.tar. In the terminal write:
 
 tar -xzvf astro.tar.gz
 
