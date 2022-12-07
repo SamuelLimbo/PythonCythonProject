@@ -14,7 +14,7 @@ class vizier_api_class(data_class):
     #Constructor::____________________________________________________________________________________________________
     def __init__(self, Target):
         self.Target = Target
-        data_class.__init__(self) #Inherites the methods from the data_class
+        data_class.__init__(self)
 
     #Methods::________________________________________________________________________________________________________
     def vizier_api(self):
@@ -22,7 +22,7 @@ class vizier_api_class(data_class):
         #Description:: Gathers the information given by the "self.select_a_filter" method and then returns a table of
         #              the targets IDs and their respective fluxe in a given chosen filter.
         #_____________________________________________________________________________________________________________
-        A      = self.filter_choice() #"A" is a list of the different filters, names of the columns...
+        A      = self.filter_choice()
         url    = "https://vizier.cds.unistra.fr/viz-bin/votable?-source=" + A[0] + "&-c=" + self.Target + "&-c.rd=" + A[4] + "&-out.all=1"
         table  = Table.read(url)
         Fluxes = table[A[2]]
@@ -31,12 +31,12 @@ class vizier_api_class(data_class):
         returns        = functions.wrap_c_search_vega_filter(A[3], A[1], 0, 0, 0)
         fmag           = returns[2] #returns[2] returns the zero magnitude for a given filter and system
         fluxes_in_jsky = []
-        target_list    = []
+        target_list    = [] #empty list that will contain the names of the targets
 
         for mag in Fluxes.data:
-            fluxes_in_jsky.append(functions.wrap_c_to_jsky(fmag, mag)) #Converts the magnitudes in jsky
+            fluxes_in_jsky.append(functions.wrap_c_to_jsky(fmag, mag))
         for targets in Target.data:
-            target_list.append(targets) #List the ideas of all the stars present in the conesearch
+            target_list.append(targets)
 
         t = QTable([target_list, fluxes_in_jsky],
                     names = ("Target ID", "Flux (jsky)"),
@@ -51,7 +51,7 @@ class vizier_api_class(data_class):
         #_____________________________________________________________________________________________________________
         Condition1 = 0
         Condition2 = 0
-        Radius = input("Please enter the radius of your conesearch in degrees: ")
+        Radius = input("Let's now extract some photometry from VizieR. To do so, please first enter the radius of your conesearch in degrees: ")
         TableName, FilterName, ColumnName, SystemName = "Ar", "a", "n", "za"
         while Condition1 == 0:
             print("\n1. III/284/allstars\n2. II/340/xmmom2_1\n3. Other table")
@@ -62,17 +62,13 @@ class vizier_api_class(data_class):
                 Condition1 = 1
                 TableName  = "III/284/allstars"
                 TargetName = "Target"
+                Print      = self.all_filters(1, 0, 0)
                 while Condition2 == 0:
-                    print("\n1. J from the 2MASS system")
-                    print("2. H from the 2MASS system")
-                    print("3. Ks from the 2MASS system")
-                    print("4. M from the Washington system")
-                    print("5. T2 from the Washington system")
-                    print("6. 3.6 from the Spitzer/IRAC system")
-                    print("7. 4.5 from the Spitzer/IRAC system")
-                    print("8. 5.8 from the Spitzer/IRAC system")
-                    print("9. 8.0 from the Spitzer/IRAC system")
-                    print("10. W2 from the WISE system")
+                    for i in range(len(Print)):
+                        if i == 0:
+                            print("\n")
+                        print(f"{i+1}. {Print[i][0]} from the {Print[i][2]} system")
+
                     FilterTest = input("Please enter the number of the filter you would like to use: ")
                     FT = int(FilterTest)
 
@@ -87,12 +83,13 @@ class vizier_api_class(data_class):
                 Condition1 = 1
                 TableName  = "II/340/xmmom2_1"
                 TargetName = "ObsID"
+                Print      = self.all_filters(2, 0, 0)
                 while Condition2 == 0:
-                    print("\n1. V from the XMM-OT system")
-                    print("2. V from the XMM-OT system")
-                    print("3. V from the XMM-OT system")
-                    print("4. B from the XMM-OT system")
-                    print("5. V from the XMM-OT system")
+                    for i in range(len(Print)):
+                        if i == 0:
+                            print("\n")
+                        print(f"{i+1}. {Print[i][0]} from the {Print[i][2]} system")
+
                     FilterTest = input("Please enter the number of the filter you would like to use: ")
                     FT = int(FilterTest)
 
