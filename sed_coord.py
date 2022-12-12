@@ -129,7 +129,7 @@ class sed_coord_class(data_class):
         plt.title('Spectral Energy Distribution', fontname = 'Serif', size = 21)
         plt.scatter(x, y, c='black')
         if withorwithout == 1:
-            plt.errorbar(x, y, yerr, xerr, fmt='none', ecolor='red', barsabove=True, capsize=3, label='Fit obtained with scipy')
+            plt.errorbar(x, y, yerr, xerr, fmt='none', ecolor='red', barsabove=True, capsize=3)
         plt.xlabel('Wavelengths', fontname = 'Serif', size = 17)
         plt.ylabel('Flux (jsky)', fontname = 'Serif', size = 17)
         plt.yscale('log')
